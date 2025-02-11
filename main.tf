@@ -153,7 +153,7 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
     for_each = var.api_server_access_profile != null ? [var.api_server_access_profile] : []
 
     content {
-      authorized_ip_ranges     = api_server_access_profile.value.authorized_ip_ranges
+      authorized_ip_ranges = api_server_access_profile.value.authorized_ip_ranges
     }
   }
 
