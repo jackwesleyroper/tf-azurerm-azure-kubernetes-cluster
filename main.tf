@@ -7,7 +7,7 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
   #optional
   dns_prefix                          = var.dns_prefix
   dns_prefix_private_cluster          = var.dns_prefix_private_cluster
-  automatic_channel_upgrade           = var.automatic_channel_upgrade
+  automatic_upgrade_channel           = var.automatic_upgrade_channel
   azure_policy_enabled                = var.azure_policy_enabled
   disk_encryption_set_id              = var.disk_encryption_set_id
   edge_zone                           = var.edge_zone
@@ -23,7 +23,6 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
   private_dns_zone_id                 = var.private_dns_zone_id
   private_cluster_public_fqdn_enabled = var.private_cluster_public_fqdn_enabled
   workload_identity_enabled           = var.workload_identity_enabled
-  public_network_access_enabled       = var.public_network_access_enabled
   sku_tier                            = var.sku_tier
   role_based_access_control_enabled   = var.role_based_access_control_enabled
   run_command_enabled                 = var.run_command_enabled
@@ -33,18 +32,15 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
     name                          = var.default_node_pool_name
     vm_size                       = var.default_node_pool_vm_size
     capacity_reservation_group_id = var.default_node_pool_capacity_reservation_group_id
-    custom_ca_trust_enabled       = var.default_node_pool_custom_ca_trust_enabled
-    enable_auto_scaling           = var.default_node_pool_enable_auto_scaling
-    enable_host_encryption        = var.default_node_pool_enable_host_encryption
-    enable_node_public_ip         = var.default_node_pool_enable_node_public_ip
+    auto_scaling_enabled          = var.default_node_pool_auto_scaling_enabled
+    host_encryption_enabled       = var.default_node_pool_host_encryption_enabled
+    node_public_ip_enabled        = var.default_node_pool_node_public_ip_enabled
     host_group_id                 = var.default_node_pool_host_group_id
     fips_enabled                  = var.default_node_pool_fips_enabled
     kubelet_disk_type             = var.default_node_pool_kubelet_disk_type
     max_pods                      = var.default_node_pool_max_pods
-    message_of_the_day            = var.default_node_pool_message_of_the_day
     node_public_ip_prefix_id      = var.default_node_pool_node_public_ip_prefix_id
     node_labels                   = var.default_node_pool_node_labels
-    node_taints                   = var.default_node_pool_node_taints
     only_critical_addons_enabled  = var.default_node_pool_only_critical_addons_enabled
     orchestrator_version          = var.default_node_pool_orchestrator_version
     os_disk_size_gb               = var.default_node_pool_os_disk_size_gb
@@ -158,8 +154,6 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
 
     content {
       authorized_ip_ranges     = api_server_access_profile.value.authorized_ip_ranges
-      subnet_id                = api_server_access_profile.value.subnet_id
-      vnet_integration_enabled = api_server_access_profile.value.vnet_integration_enabled
     }
   }
 
@@ -191,13 +185,9 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
     for_each = var.azure_active_directory_role_based_access_control != null ? [var.azure_active_directory_role_based_access_control] : []
 
     content {
-      managed                = azure_active_directory_role_based_access_control.value.managed
       tenant_id              = azure_active_directory_role_based_access_control.value.tenant_id
       admin_group_object_ids = azure_active_directory_role_based_access_control.value.admin_group_object_ids
       azure_rbac_enabled     = azure_active_directory_role_based_access_control.value.azure_rbac_enabled
-      client_app_id          = azure_active_directory_role_based_access_control.value.client_app_id
-      server_app_id          = azure_active_directory_role_based_access_control.value.server_app_id
-      server_app_secret      = azure_active_directory_role_based_access_control.value.server_app_secret
     }
   }
 
@@ -226,8 +216,6 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
       network_mode        = network_profile.value.network_mode
       network_policy      = network_profile.value.network_policy
       dns_service_ip      = network_profile.value.dns_service_ip
-      docker_bridge_cidr  = network_profile.value.docker_bridge_cidr
-      ebpf_data_plane     = network_profile.value.ebpf_data_plane
       network_plugin_mode = network_profile.value.network_plugin_mode
       outbound_type       = network_profile.value.outbound_type
       pod_cidr            = network_profile.value.pod_cidr
@@ -391,7 +379,6 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
     content {
       blob_driver_enabled         = storage_profile.value.blob_driver_enabled
       disk_driver_enabled         = storage_profile.value.disk_driver_enabled
-      disk_driver_version         = storage_profile.value.disk_driver_version
       file_driver_enabled         = storage_profile.value.file_driver_enabled
       snapshot_controller_enabled = storage_profile.value.snapshot_controller_enabled
     }
@@ -401,7 +388,7 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
     for_each = var.web_app_routing != null ? [var.web_app_routing] : []
 
     content {
-      dns_zone_id = web_app_routing.value.dns_zone_id
+      dns_zone_ids = web_app_routing.value.dns_zone_ids
     }
   }
 

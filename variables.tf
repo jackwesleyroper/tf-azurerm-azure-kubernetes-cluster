@@ -29,7 +29,7 @@ variable "dns_prefix_private_cluster" {
   default = null
 }
 
-variable "automatic_channel_upgrade" {
+variable "automatic_upgrade_channel" {
   type        = string
   description = "The upgrade channel for this Kubernetes Cluster. Possible values are `patch`, `rapid`, `node-image` and `stable`."
   default     = null
@@ -92,21 +92,17 @@ variable "default_node_pool_capacity_reservation_group_id" {
   default = null
 }
 
-variable "default_node_pool_custom_ca_trust_enabled" {
-  default = false
-}
-
-variable "default_node_pool_enable_auto_scaling" {
+variable "default_node_pool_auto_scaling_enabled" {
   type        = bool
   description = "Should the Kubernetes Auto Scaler be enabled for this Node Pool? Defaults to false."
   default     = false
 }
 
-variable "default_node_pool_enable_host_encryption" {
+variable "default_node_pool_host_encryption_enabled" {
   default = false
 }
 
-variable "default_node_pool_enable_node_public_ip" {
+variable "default_node_pool_node_public_ip_enabled" {
   default = false
 }
 
@@ -126,10 +122,6 @@ variable "default_node_pool_max_pods" {
   type        = number
   description = "The maximum number of pods that can run on each agent. Changing this forces a new resource to be created."
   default     = null
-}
-
-variable "default_node_pool_message_of_the_day" {
-  default = null
 }
 
 variable "default_node_pool_node_public_ip_prefix_id" {
@@ -309,7 +301,7 @@ variable "image_cleaner_enabled" {
 }
 
 variable "image_cleaner_interval_hours" {
-  default = 48
+  default = 0
 }
 
 variable "local_account_disabled" {
