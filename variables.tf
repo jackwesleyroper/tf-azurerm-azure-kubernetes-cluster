@@ -301,7 +301,7 @@ variable "image_cleaner_enabled" {
 }
 
 variable "image_cleaner_interval_hours" {
-  default = 0
+  default = 48
 }
 
 variable "local_account_disabled" {
