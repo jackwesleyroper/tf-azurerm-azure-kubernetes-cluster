@@ -26,7 +26,9 @@ variable "dns_prefix" {
 }
 
 variable "dns_prefix_private_cluster" {
-  default = null
+  type        = string
+  description = "The DNS prefix to use with private clusters."
+  default     = null
 }
 
 variable "automatic_upgrade_channel" {
@@ -36,15 +38,9 @@ variable "automatic_upgrade_channel" {
 }
 
 variable "disk_encryption_set_id" {
-  type = string
-
-  description = <<-EOT
-      The ID of the Disk Encryption Set which should be used for the Nodes and Volumes.
-      
-      More information can be found in the documentation [here](https://docs.microsoft.com/en-us/azure/aks/azure-disk-customer-managed-keys).
-      EOT
-
-  default = null
+  type        = string
+  description = "The ID of the Disk Encryption Set which should be used for the Nodes and Volumes."
+  default     = null
 }
 
 variable "node_resource_group" {
@@ -54,15 +50,21 @@ variable "node_resource_group" {
 }
 
 variable "private_cluster_enabled" {
-  default = false
+  type        = bool
+  description = "Should this Kubernetes Cluster have a Private Cluster? Defaults to false."
+  default     = false
 }
 
 variable "private_dns_zone_id" {
-  default = null
+  type        = string
+  description = "The ID of the Private DNS Zone which should be used for this Kubernetes Cluster."
+  default     = null
 }
 
 variable "private_cluster_public_fqdn_enabled" {
-  default = false
+  type        = bool
+  description = "Should the FQDN for the Private Cluster be publicly accessible? Defaults to false."
+  default     = false
 }
 
 variable "sku_tier" {
@@ -72,11 +74,15 @@ variable "sku_tier" {
 }
 
 variable "azure_policy_enabled" {
-  default = null
+  type        = bool
+  description = "Should the Azure Policy Add-on be enabled for this Kubernetes Cluster?"
+  default     = null
 }
 
 variable "role_based_access_control_enabled" {
-  default = true
+  type        = bool
+  description = "Should Role Based Access Control be enabled for this Kubernetes Cluster? Defaults to true."
+  default     = true
 }
 
 variable "default_node_pool_name" {
@@ -85,11 +91,14 @@ variable "default_node_pool_name" {
 }
 
 variable "default_node_pool_vm_size" {
-  type = string
+  type        = string
+  description = "The size of the Virtual Machine, e.g. Standard_DS2_v2, to use for the default Kubernetes Node Pool."
 }
 
 variable "default_node_pool_capacity_reservation_group_id" {
-  default = null
+  type        = string
+  description = "The ID of the Capacity Reservation Group to which the default node pool should be assigned."
+  default     = null
 }
 
 variable "default_node_pool_auto_scaling_enabled" {
@@ -99,23 +108,33 @@ variable "default_node_pool_auto_scaling_enabled" {
 }
 
 variable "default_node_pool_host_encryption_enabled" {
-  default = false
+  type        = bool
+  description = "Should the nodes in this Node Pool have host encryption enabled? Defaults to false."
+  default     = false
 }
 
 variable "default_node_pool_node_public_ip_enabled" {
-  default = false
+  type        = bool
+  description = "Should each node in this Node Pool have a public IP address? Defaults to false."
+  default     = false
 }
 
 variable "default_node_pool_host_group_id" {
-  default = null
+  type        = string
+  description = "The ID of the Proximity Placement Group to which the default node pool should be assigned."
+  default     = null
 }
 
 variable "default_node_pool_fips_enabled" {
-  default = null
+  type        = bool
+  description = "Should the nodes in this Node Pool have FIPS enabled? Defaults to null."
+  default     = null
 }
 
 variable "default_node_pool_kubelet_disk_type" {
-  default = null
+  type        = string
+  description = "The type of disk to use for the kubelet. Possible values are `OS` and `Ephemeral`. Defaults to null."
+  default     = null
 }
 
 variable "default_node_pool_max_pods" {
@@ -125,23 +144,33 @@ variable "default_node_pool_max_pods" {
 }
 
 variable "default_node_pool_node_public_ip_prefix_id" {
-  default = null
+  type        = string
+  description = "The ID of the Public IP Prefix to use for the nodes in this Node Pool."
+  default     = null
 }
 
 variable "default_node_pool_node_labels" {
-  default = null
+  type        = map(string)
+  description = "A map of Kubernetes labels which should be applied to nodes in this Node Pool."
+  default     = null
 }
 
 variable "default_node_pool_node_taints" {
-  default = null
+  type        = list(string)
+  description = "A list of Kubernetes taints which should be applied to nodes in this Node Pool."
+  default     = null
 }
 
 variable "default_node_pool_only_critical_addons_enabled" {
-  default = null
+  type        = bool
+  description = "Should only critical add-ons be enabled for this Node Pool? Defaults to null."
+  default     = null
 }
 
 variable "default_node_pool_orchestrator_version" {
-  default = null
+  type        = string
+  description = "The version of Kubernetes to use for this Node Pool. Defaults to null."
+  default     = null
 }
 
 variable "default_node_pool_os_disk_size_gb" {
@@ -151,39 +180,57 @@ variable "default_node_pool_os_disk_size_gb" {
 }
 
 variable "default_node_pool_os_disk_type" {
-  default = "Managed"
+  type        = string
+  description = "The type of OS disk to use for the nodes in this Node Pool. Possible values are `Managed` and `Ephemeral`. Defaults to `Managed`."
+  default     = "Managed"
 }
 
 variable "default_node_pool_os_sku" {
-  default = null
+  type        = string
+  description = "The SKU of the OS to use for the nodes in this Node Pool. Defaults to null."
+  default     = null
 }
 
 variable "default_node_pool_pod_subnet_id" {
-  default = null
+  type        = string
+  description = "The ID of the Subnet to use for the pods in this Node Pool. Defaults to null."
+  default     = null
 }
 
 variable "default_node_pool_proximity_placement_group_id" {
-  default = null
+  type        = string
+  description = "The ID of the Proximity Placement Group to which the default node pool should be assigned."
+  default     = null
 }
 
 variable "default_node_pool_scale_down_mode" {
-  default = null
+  type        = string
+  description = "The scale down mode for the default node pool. Possible values are `Delete` and `Deallocate`. Defaults to null."
+  default     = null
 }
 
 variable "default_node_pool_type" {
-  default = "VirtualMachineScaleSets"
+  type        = string
+  description = "The type of node pool to use. Possible values are `VirtualMachineScaleSets` and `AvailabilitySet`. Defaults to `VirtualMachineScaleSets`."
+  default     = "VirtualMachineScaleSets"
 }
 
 variable "default_node_pool_tags" {
-  default = null
+  type        = map(string)
+  description = "A map of tags to assign to the nodes in this Node Pool. Defaults to null."
+  default     = null
 }
 
 variable "default_node_pool_ultra_ssd_enabled" {
-  default = false
+  type        = bool
+  description = "Should Ultra SSD be enabled for the nodes in this Node Pool? Defaults to false."
+  default     = false
 }
 
 variable "default_node_pool_subnet_id" {
-  default = null
+  type        = string
+  description = "The ID of the Subnet to use for the nodes in this Node Pool. Defaults to null."
+  default     = null
 }
 
 variable "default_node_pool_max_count" {
@@ -199,183 +246,272 @@ variable "default_node_pool_min_count" {
 }
 
 variable "default_node_pool_node_count" {
-  default = null
+  type        = number
+  description = "The number of nodes which should exist in this Node Pool. Defaults to null."
+  default     = null
 }
 
 variable "default_node_pool_workload_runtime" {
-  default = null
+  type        = string
+  description = "The workload runtime to use for the nodes in this Node Pool. Possible values are `OCIContainer` and `WasmWasi`. Defaults to null."
+  default     = null
 }
 
 variable "default_node_pool_zones" {
-  default = null
+  type        = list(string)
+  description = "A list of Availability Zones to use for the nodes in this Node Pool. Defaults to null."
+  default     = null
 }
 
 variable "default_node_pool_kubelet_config" {
-  default = null
+  type        = map(string)
+  description = "A map of kubelet configurations to apply to the nodes in this Node Pool. Defaults to null."
+  default     = null
 }
 
-
 variable "default_node_pool_linux_os_config" {
-  default = null
+  type        = map(string)
+  description = "A map of Linux OS configurations to apply to the nodes in this Node Pool. Defaults to null."
+  default     = null
 }
 
 variable "default_node_pool_upgrade_settings_max_surge" {
-  default = null
+  type        = string
+  description = "The maximum number of nodes which can be upgraded at once. Defaults to null."
+  default     = null
 }
 
 variable "network_profile" {
-  default = null
+  type        = map(string)
+  description = "A map of network profile configurations for the Kubernetes Cluster. Defaults to null."
+  default     = null
 }
 
 variable "auto_scaler_profile" {
-  default = null
+  type        = map(string)
+  description = "A map of auto scaler profile configurations for the Kubernetes Cluster. Defaults to null."
+  default     = null
 }
 
 variable "identity_type" {
-  default = null
+  type        = string
+  description = "The type of identity to use for the Kubernetes Cluster. Possible values are `SystemAssigned`, `UserAssigned`, and `None`. Defaults to null."
+  default     = null
 }
 
 variable "identity_ids" {
-  default = null
+  type        = list(string)
+  description = "A list of user assigned identity IDs to use for the Kubernetes Cluster. Defaults to null."
+  default     = null
 }
 
 variable "kubelet_identity" {
-  default = null
+  type        = map(string)
+  description = "A map of kubelet identity configurations for the Kubernetes Cluster. Defaults to null."
+  default     = null
 }
 
 variable "client_id" {
-  default = null
+  type        = string
+  description = "The client ID of the service principal to use for the Kubernetes Cluster. Defaults to null."
+  default     = null
 }
 
 variable "object_id" {
-  default = null
+  type        = string
+  description = "The object ID of the service principal to use for the Kubernetes Cluster. Defaults to null."
+  default     = null
 }
 
 variable "user_assigned_identity_id" {
-  default = null
+  type        = string
+  description = "The ID of the user assigned identity to use for the Kubernetes Cluster. Defaults to null."
+  default     = null
 }
 
 variable "linux_profile" {
-  default = null
+  type        = map(string)
+  description = "A map of Linux profile configurations for the Kubernetes Cluster. Defaults to null."
+  default     = null
 }
 
 variable "linux_profile_ssh_key_key_data" {
-  sensitive = true
-  default   = null
+  type        = string
+  description = "The SSH key data to use for the Linux profile. Defaults to null."
+  sensitive   = true
+  default     = null
 }
 
 variable "maintenance_window" {
-  default = null
+  type        = map(string)
+  description = "A map of maintenance window configurations for the Kubernetes Cluster. Defaults to null."
+  default     = null
 }
 
 variable "azure_active_directory_role_based_access_control" {
-  default = null
+  type        = map(string)
+  description = "A map of Azure Active Directory role-based access control configurations for the Kubernetes Cluster. Defaults to null."
+  default     = null
 }
 
 variable "service_principal" {
-  default = null
+  type        = map(string)
+  description = "A map of service principal configurations for the Kubernetes Cluster. Defaults to null."
+  default     = null
 }
 
 variable "windows_profile" {
-  default = null
+  type        = map(string)
+  description = "A map of Windows profile configurations for the Kubernetes Cluster. Defaults to null."
+  default     = null
 }
 
 variable "api_server_access_profile" {
-  default = null
+  type        = map(string)
+  description = "A map of API server access profile configurations for the Kubernetes Cluster. Defaults to null."
+  default     = null
 }
 
 variable "aci_connector_linux" {
-  default = null
+  type        = map(string)
+  description = "A map of ACI connector Linux configurations for the Kubernetes Cluster. Defaults to null."
+  default     = null
 }
 
 variable "edge_zone" {
-  default = null
+  type        = map(string)
+  description = "A map of edge zone configurations for the Kubernetes Cluster. Defaults to null."
+  default     = null
 }
 
 variable "http_application_routing_enabled" {
-  default = null
+  type        = bool
+  description = "Should HTTP application routing be enabled for the Kubernetes Cluster? Defaults to null."
+  default     = null
 }
 
 variable "image_cleaner_enabled" {
-  default = null
+  type        = bool
+  description = "Should image cleaner be enabled for the Kubernetes Cluster? Defaults to null."
+  default     = null
 }
 
 variable "image_cleaner_interval_hours" {
-  default = 48
+  type        = number
+  description = "The interval in hours at which the image cleaner should run. Defaults to 48."
+  default     = 48
 }
 
 variable "local_account_disabled" {
-  default = null
+  type        = bool
+  description = "Should local accounts be disabled for the Kubernetes Cluster? Defaults to null."
+  default     = null
 }
 
 variable "oidc_issuer_enabled" {
-  default = null
+  type        = bool
+  description = "Should OIDC issuer be enabled for the Kubernetes Cluster? Defaults to null."
+  default     = null
 }
 
 variable "workload_identity_enabled" {
-  default = false
+  type        = bool
+  description = "Should workload identity be enabled for the Kubernetes Cluster? Defaults to false."
+  default     = false
 }
 
 variable "public_network_access_enabled" {
-  default = true
+  type        = bool
+  description = "Should public network access be enabled for the Kubernetes Cluster? Defaults to true."
+  default     = true
 }
 
 variable "run_command_enabled" {
-  default = true
+  type        = bool
+  description = "Should run command be enabled for the Kubernetes Cluster? Defaults to true."
+  default     = true
 }
 
 variable "confidential_computing" {
-  default = null
+  type        = map(string)
+  description = "A map of confidential computing configurations for the Kubernetes Cluster. Defaults to null."
+  default     = null
 }
 
 variable "monitor_metrics" {
-  default = null
+  type        = map(string)
+  description = "A map of monitor metrics configurations for the Kubernetes Cluster. Defaults to null."
+  default     = null
 }
 
 variable "node_network_profile" {
-  default = null
+  type        = map(string)
+  description = "A map of node network profile configurations for the Kubernetes Cluster. Defaults to null."
+  default     = null
 }
 
 variable "key_management_service" {
-  default = null
+  type        = map(string)
+  description = "A map of key management service configurations for the Kubernetes Cluster. Defaults to null."
+  default     = null
 }
 
 variable "key_vault_secrets_provider" {
-  default = null
+  type        = map(string)
+  description = "A map of key vault secrets provider configurations for the Kubernetes Cluster. Defaults to null."
+  default     = null
 }
 
 variable "ingress_application_gateway" {
-  default = null
+  type        = map(string)
+  description = "A map of ingress application gateway configurations for the Kubernetes Cluster. Defaults to null."
+  default     = null
 }
 
 variable "storage_profile" {
-  default = null
+  type        = map(string)
+  description = "A map of storage profile configurations for the Kubernetes Cluster. Defaults to null."
+  default     = null
 }
 
 variable "web_app_routing" {
-  default = null
+  type        = map(string)
+  description = "A map of web app routing configurations for the Kubernetes Cluster. Defaults to null."
+  default     = null
 }
 
 variable "workload_autoscaler_profile" {
-  default = null
+  type        = map(string)
+  description = "A map of workload autoscaler profile configurations for the Kubernetes Cluster. Defaults to null."
+  default     = null
 }
 
 variable "http_proxy_config" {
-  default = null
+  type        = map(string)
+  description = "A map of HTTP proxy configurations for the Kubernetes Cluster. Defaults to null."
+  default     = null
 }
 
 variable "kubernetes_version" {
-  default = null
+  type        = string
+  description = "The version of Kubernetes to use for the Kubernetes Cluster. Defaults to null."
+  default     = null
 }
 
 variable "open_service_mesh_enabled" {
-  default = null
+  type        = bool
+  description = "Should open service mesh be enabled for the Kubernetes Cluster? Defaults to null."
+  default     = null
 }
 
 variable "microsoft_defender_log_analytics_workspace_id" {
-  default = null
+  type        = string
+  description = "The ID of the log analytics workspace to use for Microsoft Defender. Defaults to null."
+  default     = null
 }
 
 variable "oms_agent_log_analytics_workspace_id" {
-  default = null
+  type        = string
+  description = "The ID of the log analytics workspace to use for the OMS agent. Defaults to null."
+  default     = null
 }
