@@ -379,8 +379,8 @@ variable "aci_connector_linux" {
 }
 
 variable "edge_zone" {
-  type        = map(string)
-  description = "A map of edge zone configurations for the Kubernetes Cluster. Defaults to null."
+  type        = string
+  description = "Specifies the Extended Zone (formerly called Edge Zone) within the Azure Region where this Managed Kubernetes Cluster should exist. Changing this forces a new resource to be created."
   default     = null
 }
 
