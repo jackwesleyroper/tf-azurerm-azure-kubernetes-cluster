@@ -282,7 +282,6 @@ variable "default_node_pool_upgrade_settings_max_surge" {
 }
 
 variable "network_profile" {
-  type        = map(string)
   description = "A map of network profile configurations for the Kubernetes Cluster. Defaults to null."
   default     = null
 }
@@ -363,7 +362,6 @@ variable "windows_profile" {
 }
 
 variable "api_server_access_profile" {
-  type        = map(string)
   description = "A map of API server access profile configurations for the Kubernetes Cluster. Defaults to null."
   default     = null
 }
