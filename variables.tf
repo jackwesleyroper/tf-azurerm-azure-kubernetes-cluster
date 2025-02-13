@@ -300,13 +300,11 @@ variable "identity_type" {
 }
 
 variable "identity_ids" {
-  type        = list(string)
   description = "A list of user assigned identity IDs to use for the Kubernetes Cluster. Defaults to null."
   default     = null
 }
 
 variable "kubelet_identity" {
-  type        = map(string)
   description = "A map of kubelet identity configurations for the Kubernetes Cluster. Defaults to null."
   default     = null
 }
@@ -343,13 +341,11 @@ variable "linux_profile_ssh_key_key_data" {
 }
 
 variable "maintenance_window" {
-  type        = map(string)
   description = "A map of maintenance window configurations for the Kubernetes Cluster. Defaults to null."
   default     = null
 }
 
 variable "azure_active_directory_role_based_access_control" {
-  type        = map(string)
   description = "A map of Azure Active Directory role-based access control configurations for the Kubernetes Cluster. Defaults to null."
   default     = null
 }
